@@ -214,16 +214,19 @@ func (libusbImpl) getDeviceDesc(d *libusbDevice) (*Descriptor, error) {
 	}
 
 	return &Descriptor{
-		Bus:      uint8(C.libusb_get_bus_number((*C.libusb_device)(d))),
-		Address:  uint8(C.libusb_get_device_address((*C.libusb_device)(d))),
-		Spec:     BCD(desc.bcdUSB),
-		Device:   BCD(desc.bcdDevice),
-		Vendor:   ID(desc.idVendor),
-		Product:  ID(desc.idProduct),
-		Class:    uint8(desc.bDeviceClass),
-		SubClass: uint8(desc.bDeviceSubClass),
-		Protocol: uint8(desc.bDeviceProtocol),
-		Configs:  cfgs,
+		Bus:               uint8(C.libusb_get_bus_number((*C.libusb_device)(d))),
+		Address:           uint8(C.libusb_get_device_address((*C.libusb_device)(d))),
+		Spec:              BCD(desc.bcdUSB),
+		Device:            BCD(desc.bcdDevice),
+		Vendor:            ID(desc.idVendor),
+		Product:           ID(desc.idProduct),
+		Class:             uint8(desc.bDeviceClass),
+		SubClass:          uint8(desc.bDeviceSubClass),
+		Protocol:          uint8(desc.bDeviceProtocol),
+		ManufacturerIndex: uint8(desc.iManufacturer),
+		ProductIndex:      uint8(desc.iProduct),
+		SerialNumberIndex: uint8(desc.iSerialNumber),
+		Configs:           cfgs,
 	}, nil
 }
 
