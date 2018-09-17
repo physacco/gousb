@@ -36,6 +36,11 @@ type Descriptor struct {
 	SubClass uint8 // The sub-class (within the class) of this device
 	Protocol uint8 // The protocol (within the sub-class) of this device
 
+	// String indices
+	ManufacturerIndex uint8 // iManufacturer
+	ProductIndex      uint8 // iProduct
+	SerialNumberIndex uint8 // iSerialNumber
+
 	// Configuration information
 	Configs []ConfigInfo
 }
@@ -67,6 +72,9 @@ func newDescriptor(dev *C.libusb_device) (*Descriptor, error) {
 		Class:    uint8(desc.bDeviceClass),
 		SubClass: uint8(desc.bDeviceSubClass),
 		Protocol: uint8(desc.bDeviceProtocol),
+		ManufacturerIndex: uint8(desc.iManufacturer),
+		ProductIndex:      uint8(desc.iProduct),
+		SerialNumberIndex: uint8(desc.iSerialNumber),
 		Configs:  cfgs,
 	}, nil
 }
